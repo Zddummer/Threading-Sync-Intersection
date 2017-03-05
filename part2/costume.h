@@ -1,7 +1,7 @@
 /*
- * 
  *
- * CS 441/541: Finicky Voter (Project 3 Part 2)
+ *
+ * CS 441/541: Pirates and Ninjas (Project 3 Part 2)
  *
  */
 #include <stdio.h>
@@ -16,6 +16,7 @@
  * Defines
  *****************************/
 
+
 /*****************************
  * Structures
  *****************************/
@@ -25,7 +26,7 @@
  * Global Variables
  *****************************/
 
+
 /*****************************
  * Function Declarations
  *****************************/
-
