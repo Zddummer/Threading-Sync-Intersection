@@ -24,7 +24,7 @@ all: $(PROGS)
 #
 # Pirates and Ninjas
 #
-finicky-voter: costume.c costume.h ../lib/semaphore_support.o
+costume: costume.c costume.h ../lib/semaphore_support.o
 	$(CC) -o costume costume.c ../lib/semaphore_support.o $(CFLAGS) $(LDFLAGS)
 
 #
