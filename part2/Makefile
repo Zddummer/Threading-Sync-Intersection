@@ -14,7 +14,7 @@ CC=gcc
 CFLAGS=-Wall -g -O0 -I../lib
 LDFLAGS=-pthread
 
-PROGS=finicky-voter
+PROGS=costume
 #
 # List all of the binary programs you want to build here
 # Separate each program with a single space
@@ -22,10 +22,10 @@ PROGS=finicky-voter
 all: $(PROGS)
 
 #
-# Finicky Voter
+# Pirates and Ninjas
 #
-finicky-voter: finicky-voter.c finicky-voter.h ../lib/semaphore_support.o
-	$(CC) -o finicky-voter finicky-voter.c ../lib/semaphore_support.o $(CFLAGS) $(LDFLAGS)
+finicky-voter: costume.c costume.h ../lib/semaphore_support.o
+	$(CC) -o costume costume.c ../lib/semaphore_support.o $(CFLAGS) $(LDFLAGS)
 
 #
 # Cleanup the files that we have created
