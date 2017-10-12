@@ -1,7 +1,7 @@
 /*
  * 
  *
- * CS 441/541: Bounded Buffer (Project 3 Part 1)
+ * CS 441/541: Bounded Buffer (Project 4 Part 1)
  *
  */
 #include <stdio.h>

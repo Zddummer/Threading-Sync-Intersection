@@ -1,6 +1,6 @@
 #
 # Samantha Foley
-# CS 441/541: Project 3 Part 1
+# CS 441/541: Project 4 Part 2
 #
 #####################################################################
 #
@@ -14,7 +14,8 @@ CC=gcc
 CFLAGS=-Wall -g -O0 -I../lib
 LDFLAGS=-pthread
 
-PROGS=costume
+PROGS=stoplight
+
 #
 # List all of the binary programs you want to build here
 # Separate each program with a single space
@@ -22,10 +23,23 @@ PROGS=costume
 all: $(PROGS)
 
 #
-# Pirates and Ninjas
+# Traffic Management 
 #
-costume: costume.c costume.h ../lib/semaphore_support.o
-	$(CC) -o costume costume.c ../lib/semaphore_support.o $(CFLAGS) $(LDFLAGS)
+stoplight: stoplight.c support.o stoplight.h ../lib/semaphore_support.o
+	$(CC) -o stoplight stoplight.c support.o ../lib/semaphore_support.o $(CFLAGS) $(LDFLAGS)
+
+
+#
+# Support library
+#
+support.o: support.c support.h ../lib/semaphore_support.o
+	$(CC) -c -o support.o support.c  $(CFLAGS)
+
+#
+# Semaphore support library
+#
+../lib/semaphore_support.o: ../lib/semaphore_support.h ../lib/semaphore_support.c
+	cd ../lib && make lib
 
 #
 # Cleanup the files that we have created
