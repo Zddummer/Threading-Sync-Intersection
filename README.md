@@ -1,5 +1,35 @@
-## CS 441/541 Project 4 Template
+# CS441/541 Synchronization Project
 
-This repository contains the template materials for project 4.
+## Author(s):
 
-Place your README documentation in the appropriate subdirectory.
+TODO
+
+
+## Date:
+
+TODO
+
+
+## Description:
+
+TODO
+
+
+## How to build the software
+
+TODO
+
+
+## How to use the software
+
+TODO
+
+
+## How the software was tested
+
+TODO
+
+
+## Known bugs and problem areas
+
+TODO
