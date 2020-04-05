@@ -1,5 +1,5 @@
 /*
- * Samantha Foley
+ * Zach Dummer
  *
  * CS 441/541 : Synchronization Project
  */
