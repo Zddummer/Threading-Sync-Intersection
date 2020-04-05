@@ -17,6 +17,8 @@ int main(int argc, char * argv[]) {
         return -1;
     }
 
+    printArgs();
+
     /*
      * Initialize:
      * - random number generator
@@ -61,7 +63,26 @@ int main(int argc, char * argv[]) {
 
 int parse_args(int argc, char **argv)
 {
-    // TODO - Write me
+    if( argc != 3 || !isNumber(argv[1]) || !isNumber(argv[2]))
+    {
+    	printf("ERROR: Please supply two arguments\n");
+    	printf("\t- <integer> (greater than zero) : Time in seconds the program should run for.\n");
+    	printf("\t- <integer> (greater than zero) : Number of cars in simulation.\n");
+
+    	return -1;
+    }
+
+    ttl = atoi(argv[1]);
+    num_cars = atoi(argv[2]);
+
+    if( ttl < 1 || num_cars < 1)
+    {
+    	printf("ERROR: Please supply two arguments\n");
+    	printf("\t- <integer> (greater than zero) : Time in seconds the program should run for.\n");
+    	printf("\t- <integer> (greater than zero) : Number of cars in simulation.\n");
+
+    	return -1;
+    }
 
     /*
      * Initialize support library
@@ -69,6 +90,30 @@ int parse_args(int argc, char **argv)
     support_init();
 
     return 0;
+}
+
+/*
+* Checks the string passed in can be converted to a number
+*/
+bool isNumber (const char *strToCheck) { 
+    while (*strToCheck) { 
+		if (*strToCheck < '0' || *strToCheck > '9')
+		{
+			return 0;
+		} 
+		strToCheck++; 
+    } 
+    return 1; 
+}
+
+void printArgs()
+{
+	printf("--------------------\n");
+	printf("Time to live  :   %d\n", ttl);
+	printf("Number of cars:   %d\n", num_cars);
+	printf("--------------------\n");
+
+	print_header();
 }
 
 /*

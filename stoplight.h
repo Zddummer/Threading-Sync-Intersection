@@ -3,6 +3,8 @@
  *
  * CS 441/541 : Synchronization Project
  */
+#include <stdbool.h>
+
 #include "support.h"
 
 
@@ -42,6 +44,10 @@ int time_to_exit = FALSE;
  * Parse command line arguments
  */
 int parse_args(int argc, char **argv);
+
+bool isNumber (const char *strToCheck);
+
+void printArgs();
 
 /*
  * Main thread function that picks an arbitrary direction to approach from,
