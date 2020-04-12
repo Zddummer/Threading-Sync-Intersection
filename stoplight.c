@@ -171,6 +171,8 @@ void init()
     semaphore_create(&g_NextFromSouth, 1);
     semaphore_create(&g_NextFromEast, 1);
     semaphore_create(&g_NextFromWest, 1);
+
+    semaphore_create(&g_MaxCars, 3);
 }
 
 
@@ -229,6 +231,11 @@ void *start_car(void *param) {
             default :
                 break;
         }
+
+        /*
+         * Don't allow too many cars in the intersection
+         */
+        semaphore_wait(&g_MaxCars);
 
         /*
          * This car can star going through the intersection
@@ -301,9 +308,10 @@ void *start_car(void *param) {
             this_car.state = STATE_GO_STRAIGHT_I1;
             print_state(this_car, NULL);
             usleep(TIME_TO_CROSS);
-            semaphore_post(&g_MutexNW);
 
             semaphore_wait(&g_MutexSW);
+            semaphore_post(&g_MutexNW);
+
             usleep(TIME_TO_CROSS);
             this_car.state = STATE_LEAVE_I1;
             semaphore_post(&g_MutexSW);
@@ -314,9 +322,10 @@ void *start_car(void *param) {
             this_car.state = STATE_GO_STRAIGHT_I1;
             print_state(this_car, NULL);
             usleep(TIME_TO_CROSS);
+            
+            semaphore_wait(&g_MutexNE);
             semaphore_post(&g_MutexSE);
 
-            semaphore_wait(&g_MutexNE);
             usleep(TIME_TO_CROSS);
             this_car.state = STATE_LEAVE_I1;
             semaphore_post(&g_MutexNE);
@@ -327,9 +336,10 @@ void *start_car(void *param) {
             this_car.state = STATE_GO_STRAIGHT_I1;
             print_state(this_car, NULL);
             usleep(TIME_TO_CROSS);
-            semaphore_post(&g_MutexNE);
-            
+
             semaphore_wait(&g_MutexNW);
+            semaphore_post(&g_MutexNE);
+
             usleep(TIME_TO_CROSS);
             this_car.state = STATE_LEAVE_I1;
             semaphore_post(&g_MutexNW);
@@ -340,9 +350,10 @@ void *start_car(void *param) {
             this_car.state = STATE_GO_STRAIGHT_I1;
             print_state(this_car, NULL);
             usleep(TIME_TO_CROSS);
-            semaphore_post(&g_MutexSW);
 
             semaphore_wait(&g_MutexSE);
+            semaphore_post(&g_MutexSW);
+            
             usleep(TIME_TO_CROSS);
             this_car.state = STATE_LEAVE_I1;
             semaphore_post(&g_MutexSE);
@@ -355,13 +366,16 @@ void *start_car(void *param) {
             this_car.state = STATE_GO_LEFT_I1;
             print_state(this_car, NULL);
             usleep(TIME_TO_CROSS);
-            semaphore_post(&g_MutexNW);
+
 
             semaphore_wait(&g_MutexSW);
+            semaphore_post(&g_MutexNW);
+
             usleep(TIME_TO_CROSS);
+
+            semaphore_wait(&g_MutexSE);
             semaphore_post(&g_MutexSW);
             
-            semaphore_wait(&g_MutexSE);
             usleep(TIME_TO_CROSS);
             semaphore_post(&g_MutexSE);
 
@@ -374,13 +388,15 @@ void *start_car(void *param) {
             this_car.state = STATE_GO_LEFT_I1;
             print_state(this_car, NULL);
             usleep(TIME_TO_CROSS);
-            semaphore_post(&g_MutexSE);
 
             semaphore_wait(&g_MutexNE);
+            semaphore_post(&g_MutexSE);
+
             usleep(TIME_TO_CROSS);
+
+            semaphore_wait(&g_MutexNW);
             semaphore_post(&g_MutexNE);
             
-            semaphore_wait(&g_MutexNW);
             usleep(TIME_TO_CROSS);
             semaphore_post(&g_MutexNW);
 
@@ -392,13 +408,16 @@ void *start_car(void *param) {
             this_car.state = STATE_GO_LEFT_I1;
             print_state(this_car, NULL);
             usleep(TIME_TO_CROSS);
-            semaphore_post(&g_MutexNE);
+
 
             semaphore_wait(&g_MutexNW);
+            semaphore_post(&g_MutexNE);
+
             usleep(TIME_TO_CROSS);
+
+            semaphore_wait(&g_MutexSW);
             semaphore_post(&g_MutexNW);
             
-            semaphore_wait(&g_MutexSW);
             usleep(TIME_TO_CROSS);
             semaphore_post(&g_MutexSW);
 
@@ -410,18 +429,22 @@ void *start_car(void *param) {
             this_car.state = STATE_GO_LEFT_I1;
             print_state(this_car, NULL);
             usleep(TIME_TO_CROSS);
-            semaphore_post(&g_MutexSW);
 
             semaphore_wait(&g_MutexSE);
+            semaphore_post(&g_MutexSW);
+
             usleep(TIME_TO_CROSS);
+
+            semaphore_wait(&g_MutexNE);
             semaphore_post(&g_MutexSE);
             
-            semaphore_wait(&g_MutexNE);
             usleep(TIME_TO_CROSS);
             semaphore_post(&g_MutexNE);
 
             this_car.state = STATE_LEAVE_I1;
         }
+
+        semaphore_post(&g_MaxCars);
 
         /*
          * Let the next car behind you go

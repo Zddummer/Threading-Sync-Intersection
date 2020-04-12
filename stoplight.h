@@ -55,6 +55,11 @@ semaphore_t g_NextFromEast;
 semaphore_t g_NextFromWest;
 
 /*
+ * Mutex to allow only 3 car in the interection
+ */
+semaphore_t g_MaxCars;
+
+/*
  * Global variables for the stats
  */
 double g_dblMinTime = 1000.0;
