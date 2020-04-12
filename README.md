@@ -2,37 +2,45 @@
 
 ## Author(s):
 
-TODO
+Zach Dummer
 
 
 ## Date:
 
-TODO
+04/11/2020
 
 
 ## Description:
 
-TODO
+This program is a simulation of a four way intersection, which uses threading and syncronization
+to eliminate deadlock and make traffic as effective as possible.
 
 
 ## How to build the software
 
-TODO
+Navigate to the directory with the makefile
+Type "make"
+hit Enter
 
 
 ## How to use the software
 
-TODO
+Type "./stoplight" followed by 2 arguments
+- <integer>(greater than zero) : The time the program should run for
+- <integer>(greater than zero) : The number of cars in the simulation
 
 
 ## How the software was tested
 
-TODO
+To test this software I started with only one or 2 cars running for a small amount of time and gradually went
+larger and large to make sure there was no deadlock.
 
 
 ## Known bugs and problem areas
 
-TODO
+There are no know bugs at his time.
+
+If you find a bug please raise the issue @ https://bitbucket.org/zdummer/cs441-intersection/src/master/
 
 ## Special section: Before coding
 
@@ -57,3 +65,24 @@ TODO
   	 N number of cars at any one time which could cause starvation in the intersections
   	Worst case: The cars in the intersection don't get to go because the cars from the bridge 
   				take priority
+
+## Special section: After coding
+
+1) My solution to this problem was to make a mutex for the individual sections of the intersection
+    which can only have one car in them at a time.
+
+2) 
+  a) I avoided deadlock by have each car only make progress one subsection at a time rather than waiting
+      for the entire lane to be clear to make their way through the intersection.
+
+  b) I prevented accidents by require each car to acquire the mutex before entering the next section
+      as well as getting to the next section before releasing the lock
+
+  c) I improved taffic flow by allowing cars to enter the intersection even if the intersection isn't clear
+
+  d) I also added a semaphore for each approaching direction to ensure that the first car to get to the line from a certain direction 
+      would be the first car to go. If there was already a car there they would wait in line.
+
+  e) Any car has an equal chance of getting into the next area
+
+  f) Nothing has priotity so nothing gets starved out
